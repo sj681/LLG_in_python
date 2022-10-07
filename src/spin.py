@@ -12,6 +12,9 @@ class Spin(object):
         self.anisotropy = anisotropy
         self.spin_moment = spin_moment
 
+    def anisotropy_field(self):
+        return -self.spin_position_z*self.spin_position_z*self.anisotropy
+
 
 class SpinBuilder(object):
     position_x = 0
