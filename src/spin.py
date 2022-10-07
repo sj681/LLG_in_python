@@ -4,9 +4,9 @@ class Spin(object):
 
     Z_INDEX = 2
 
-    def __init__(self, position_x, position_y, position_z, spin_position_x, spin_position_y, spin_position_z, type_of_material, anisotropy, spin_moment):
-        self.position = np.array([position_x, position_y, position_z])
-        self.spin_position = np.array([spin_position_x, spin_position_y, spin_position_z])
+    def __init__(self, position, spin_position, type_of_material, anisotropy, spin_moment):
+        self.position = position
+        self.spin_position = spin_position
         self.type_of_material = type_of_material
         self.anisotropy = anisotropy
         self.spin_moment = spin_moment
@@ -52,12 +52,8 @@ class SpinBuilder(object):
 
     def build(self):
         return Spin(
-            position_x=self.position_x,
-            position_y=self.position_y,
-            position_z=self.position_z,
-            spin_position_x=self.spin_position_x,
-            spin_position_y=self.spin_position_y,
-            spin_position_z=self.spin_position_z,
+            position = np.array([self.position_x, self.position_y, self.position_z]),
+            spin_position = np.array([self.spin_position_x, self.spin_position_y, self.spin_position_z]),
             type_of_material=self.type_of_material,
             anisotropy=self.anisotropy,
             spin_moment=self.spin_moment
