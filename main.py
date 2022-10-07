@@ -1,7 +1,7 @@
 import numpy as np
 from typing import NamedTuple
 
-from src.spin import Spin
+from src.spin import SpinBuilder
 
 class Material(NamedTuple):
     spin_moment: float
@@ -33,7 +33,7 @@ if __name__ == '__main__':
     iron = Material(1,1,1)
     cobalt = Material(2,2,2)
 
-    atom_spins[atom_index] = Spin(0,0,0,0.4,0.8,0.1,"iron",1,1)
+    atom_spins[atom_index] = SpinBuilder().withDirection(0.4, 0.8, 0.1).withTypeOfMaterial("iron").withAnisotropy(1).withSpinMoment(1).build()
 
     total_field = 0
 
