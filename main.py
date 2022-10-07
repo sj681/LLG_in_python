@@ -9,16 +9,12 @@ class Material(NamedTuple):
     anisotropy_i: float
 
 
-def calculate_fields(field):
+def calculate_fields(field, spin):
     field = [0,0,0]
-    field[2] = field[2] + calculate_anisotropy_field()
+    field[2] = field[2] + spin.anisotropy_field()
     #field = field + calculate_thermal_field()
     #field = field + calculate_exchange_field()
     return field
-
-def calculate_anisotropy_field():
-
-    return -atom_spins[atom_index].spin_position_z*atom_spins[atom_index].spin_position_z*atom_spins[atom_index].anisotropy
 
 
 if __name__ == '__main__':
@@ -39,7 +35,7 @@ if __name__ == '__main__':
 
     for i in range(0,number_of_timesteps):
 
-        total_field = calculate_fields(total_field)
+        total_field = calculate_fields(total_field, atom_spins[atom_index])
 
         spin_positions = [atom_spins[atom_index].spin_position_x,atom_spins[atom_index].spin_position_y,atom_spins[atom_index].spin_position_z]
 
