@@ -24,27 +24,27 @@ class SpinBuilder(object):
     def __init__(self) -> None:
         pass
 
-    def withPosition(self, x, y, z):
+    def with_position(self, x, y, z):
         self.position_x = x
         self.position_y = y
         self.position_z = z
         return self
     
-    def withDirection(self, x, y, z):
+    def with_direction(self, x, y, z):
         self.spin_position_x = x
         self.spin_position_y = y
         self.spin_position_z = z
         return self
 
-    def withTypeOfMaterial(self, type_of_material):
+    def with_type_of_material(self, type_of_material):
         self.type_of_material = type_of_material
         return self
 
-    def withAnisotropy(self, anisotropy):
+    def with_anisotropy(self, anisotropy):
         self.anisotropy = anisotropy
         return self
 
-    def withSpinMoment(self, spin_moment):
+    def with_spin_moment(self, spin_moment):
         self.spin_moment = spin_moment
         return self
 
