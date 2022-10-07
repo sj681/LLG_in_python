@@ -37,8 +37,8 @@ def calculate_anisotropy_field():
 if __name__ == '__main__':
 
     number_of_atoms = 1
-    number_of_simulation_steps = 30
-    timestep = 1
+    number_of_timesteps = 30
+    timestep_size = 1
 
     atom_spins = [0 for i in range(number_of_atoms)]
     atom_index = 0
@@ -50,7 +50,7 @@ if __name__ == '__main__':
 
     total_field = 0
 
-    for i in range(0,number_of_simulation_steps):
+    for i in range(0,number_of_timesteps):
 
         total_field = calculate_fields(total_field)
 
@@ -63,9 +63,9 @@ if __name__ == '__main__':
         euler_step = s_cross_h + s_cross_s_cross_h
 
         spin_positions_after_euler_step = [0,0,0]
-        spin_positions_after_euler_step[0]=atom_spins[atom_index].spin_position_x + euler_step[0]*timestep
-        spin_positions_after_euler_step[1]=atom_spins[atom_index].spin_position_y + euler_step[1]*timestep
-        spin_positions_after_euler_step[2]=atom_spins[atom_index].spin_position_z + euler_step[2]*timestep
+        spin_positions_after_euler_step[0]=atom_spins[atom_index].spin_position_x + euler_step[0]*timestep_size
+        spin_positions_after_euler_step[1]=atom_spins[atom_index].spin_position_y + euler_step[1]*timestep_size
+        spin_positions_after_euler_step[2]=atom_spins[atom_index].spin_position_z + euler_step[2]*timestep_size
 
         spin_positions_after_euler_step = spin_positions_after_euler_step/np.linalg.norm(spin_positions_after_euler_step)
 
