@@ -36,41 +36,41 @@ def calculate_anisotropy_field():
     return -spins_array[atom].spin_position_z*spins_array[atom].spin_position_z*spins_array[atom].anisotropy
 
 
+if __name__ == '__main__':
+    number_of_atoms = 1
+    number_of_simulation_steps = 30
 
-number_of_atoms = 1
-number_of_simulation_steps = 30
+    spins_array=[0 for i in range(number_of_atoms)]
+    atom = 0
+    iron = material_properties(1,1,1)
+    co = material_properties(2,2,2)
 
-spins_array=[0 for i in range(number_of_atoms)]
-atom = 0
-iron = material_properties(1,1,1)
-co = material_properties(2,2,2)
+    spins_array[atom] = create_a_spin(0,0,0,0.4,0.8,0.1,"iron",1,1)
 
-spins_array[atom] = create_a_spin(0,0,0,0.4,0.8,0.1,"iron",1,1)
+    total_field = 0
 
-total_field = 0
+    for i in range(0,number_of_simulation_steps):
 
-for i in range(0,number_of_simulation_steps):
+        total_field = calculate_fields(total_field)
 
-    total_field = calculate_fields(total_field)
+        spin_positions = [spins_array[atom].spin_position_x,spins_array[atom].spin_position_y,spins_array[atom].spin_position_z]
 
-    spin_positions = [spins_array[atom].spin_position_x,spins_array[atom].spin_position_y,spins_array[atom].spin_position_z]
+        s_cross_h = np.cross(spin_positions, total_field)
 
-    s_cross_h = np.cross(spin_positions, total_field)
+        s_cross_s_cross_h = np.cross(spin_positions, s_cross_h)
 
-    s_cross_s_cross_h = np.cross(spin_positions, s_cross_h)
+        euler_step = s_cross_h + s_cross_s_cross_h
 
-    euler_step = s_cross_h + s_cross_s_cross_h
+        spin_positions_after_euler_step = [0,0,0]
+        dt = 1
+        spin_positions_after_euler_step[0]=spins_array[atom].spin_position_x + euler_step[0]*dt;
+        spin_positions_after_euler_step[1]=spins_array[atom].spin_position_y + euler_step[1]*dt;
+        spin_positions_after_euler_step[2]=spins_array[atom].spin_position_z + euler_step[2]*dt;
 
-    spin_positions_after_euler_step = [0,0,0]
-    dt = 1
-    spin_positions_after_euler_step[0]=spins_array[atom].spin_position_x + euler_step[0]*dt;
-    spin_positions_after_euler_step[1]=spins_array[atom].spin_position_y + euler_step[1]*dt;
-    spin_positions_after_euler_step[2]=spins_array[atom].spin_position_z + euler_step[2]*dt;
+        spin_positions_after_euler_step = spin_positions_after_euler_step/np.linalg.norm(spin_positions_after_euler_step)
 
-    spin_positions_after_euler_step = spin_positions_after_euler_step/np.linalg.norm(spin_positions_after_euler_step)
+        spins_array[atom].spin_position_x = spin_positions_after_euler_step[0]
+        spins_array[atom].spin_position_y = spin_positions_after_euler_step[1]
+        spins_array[atom].spin_position_z = spin_positions_after_euler_step[2]
 
-    spins_array[atom].spin_position_x = spin_positions_after_euler_step[0]
-    spins_array[atom].spin_position_y = spin_positions_after_euler_step[1]
-    spins_array[atom].spin_position_z = spin_positions_after_euler_step[2]
-
-    print(spin_positions_after_euler_step)
+        print(spin_positions_after_euler_step)
