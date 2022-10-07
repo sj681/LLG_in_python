@@ -63,13 +63,13 @@ for i in range(0,number_of_simulation_steps):
 
     spin_positions_after_euler_step = [0,0,0]
     dt = 1
-    spin_positions_after_euler_step[atom]=spins_array[atom].spin_position_x + euler_step[atom]*dt;
+    spin_positions_after_euler_step[0]=spins_array[atom].spin_position_x + euler_step[0]*dt;
     spin_positions_after_euler_step[1]=spins_array[atom].spin_position_y + euler_step[1]*dt;
     spin_positions_after_euler_step[2]=spins_array[atom].spin_position_z + euler_step[2]*dt;
 
     spin_positions_after_euler_step = spin_positions_after_euler_step/np.linalg.norm(spin_positions_after_euler_step)
 
-    spins_array[atom].spin_position_x = spin_positions_after_euler_step[atom]
+    spins_array[atom].spin_position_x = spin_positions_after_euler_step[0]
     spins_array[atom].spin_position_y = spin_positions_after_euler_step[1]
     spins_array[atom].spin_position_z = spin_positions_after_euler_step[2]
 
