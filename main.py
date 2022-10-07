@@ -64,9 +64,9 @@ if __name__ == '__main__':
         euler_step = s_cross_h + s_cross_s_cross_h
 
         spin_positions_after_euler_step = [0,0,0]
-        spin_positions_after_euler_step[0]=spins_array[atom].spin_position_x + euler_step[0]*timestep;
-        spin_positions_after_euler_step[1]=spins_array[atom].spin_position_y + euler_step[1]*timestep;
-        spin_positions_after_euler_step[2]=spins_array[atom].spin_position_z + euler_step[2]*timestep;
+        spin_positions_after_euler_step[0]=spins_array[atom].spin_position_x + euler_step[0]*timestep
+        spin_positions_after_euler_step[1]=spins_array[atom].spin_position_y + euler_step[1]*timestep
+        spin_positions_after_euler_step[2]=spins_array[atom].spin_position_z + euler_step[2]*timestep
 
         spin_positions_after_euler_step = spin_positions_after_euler_step/np.linalg.norm(spin_positions_after_euler_step)
 
