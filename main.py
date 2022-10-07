@@ -57,9 +57,7 @@ if __name__ == '__main__':
         spin_positions = [atom_spins[atom_index].spin_position_x,atom_spins[atom_index].spin_position_y,atom_spins[atom_index].spin_position_z]
 
         s_cross_h = np.cross(spin_positions, total_field)
-
         s_cross_s_cross_h = np.cross(spin_positions, s_cross_h)
-
         euler_step = s_cross_h + s_cross_s_cross_h
 
         spin_positions_after_euler_step = [0,0,0]
