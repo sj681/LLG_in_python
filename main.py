@@ -43,7 +43,7 @@ if __name__ == '__main__':
     spins = [0 for i in range(number_of_atoms)]
     atom = 0
     iron = material(1,1,1)
-    co = material(2,2,2)
+    cobalt = material(2,2,2)
 
     spins[atom] = create_a_spin(0,0,0,0.4,0.8,0.1,"iron",1,1)
 
