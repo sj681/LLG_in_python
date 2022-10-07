@@ -31,7 +31,7 @@ def calculate_fields(field):
 
 def calculate_anisotropy_field():
 
-    return -spins[atom].spin_position_z*spins[atom].spin_position_z*spins[atom].anisotropy
+    return -atom_spins[atom_index].spin_position_z*atom_spins[atom_index].spin_position_z*atom_spins[atom_index].anisotropy
 
 
 if __name__ == '__main__':
@@ -40,12 +40,13 @@ if __name__ == '__main__':
     number_of_simulation_steps = 30
     timestep = 1
 
-    spins = [0 for i in range(number_of_atoms)]
-    atom = 0
+    atom_spins = [0 for i in range(number_of_atoms)]
+    atom_index = 0
+
     iron = material(1,1,1)
     cobalt = material(2,2,2)
 
-    spins[atom] = create_a_spin(0,0,0,0.4,0.8,0.1,"iron",1,1)
+    atom_spins[atom_index] = create_a_spin(0,0,0,0.4,0.8,0.1,"iron",1,1)
 
     total_field = 0
 
@@ -53,7 +54,7 @@ if __name__ == '__main__':
 
         total_field = calculate_fields(total_field)
 
-        spin_positions = [spins[atom].spin_position_x,spins[atom].spin_position_y,spins[atom].spin_position_z]
+        spin_positions = [atom_spins[atom_index].spin_position_x,atom_spins[atom_index].spin_position_y,atom_spins[atom_index].spin_position_z]
 
         s_cross_h = np.cross(spin_positions, total_field)
 
@@ -62,14 +63,14 @@ if __name__ == '__main__':
         euler_step = s_cross_h + s_cross_s_cross_h
 
         spin_positions_after_euler_step = [0,0,0]
-        spin_positions_after_euler_step[0]=spins[atom].spin_position_x + euler_step[0]*timestep
-        spin_positions_after_euler_step[1]=spins[atom].spin_position_y + euler_step[1]*timestep
-        spin_positions_after_euler_step[2]=spins[atom].spin_position_z + euler_step[2]*timestep
+        spin_positions_after_euler_step[0]=atom_spins[atom_index].spin_position_x + euler_step[0]*timestep
+        spin_positions_after_euler_step[1]=atom_spins[atom_index].spin_position_y + euler_step[1]*timestep
+        spin_positions_after_euler_step[2]=atom_spins[atom_index].spin_position_z + euler_step[2]*timestep
 
         spin_positions_after_euler_step = spin_positions_after_euler_step/np.linalg.norm(spin_positions_after_euler_step)
 
-        spins[atom].spin_position_x = spin_positions_after_euler_step[0]
-        spins[atom].spin_position_y = spin_positions_after_euler_step[1]
-        spins[atom].spin_position_z = spin_positions_after_euler_step[2]
+        atom_spins[atom_index].spin_position_x = spin_positions_after_euler_step[0]
+        atom_spins[atom_index].spin_position_y = spin_positions_after_euler_step[1]
+        atom_spins[atom_index].spin_position_z = spin_positions_after_euler_step[2]
 
         print(spin_positions_after_euler_step)
