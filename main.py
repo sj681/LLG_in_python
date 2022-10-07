@@ -1,13 +1,11 @@
 import numpy as np
+from collections import namedtuple
 
 
-class material_properties(object):
-
-    def __init__(self, spin_moment, exchange_between_i_and_j, anisotropy_i):
-
-        self.spin_moment = spin_moment
-        self.exchange_between_i_and_j = exchange_between_i_and_j
-        self.anisotropy_i = anisotropy_i
+class material(namedtuple):
+    spin_moment: float
+    exchange_between_i_and_j: float
+    anisotropy_i: float
 
 
 class create_a_spin(object):
@@ -44,8 +42,8 @@ if __name__ == '__main__':
 
     spins_array=[0 for i in range(number_of_atoms)]
     atom = 0
-    iron = material_properties(1,1,1)
-    co = material_properties(2,2,2)
+    iron = material(1,1,1)
+    co = material(2,2,2)
 
     spins_array[atom] = create_a_spin(0,0,0,0.4,0.8,0.1,"iron",1,1)
 
