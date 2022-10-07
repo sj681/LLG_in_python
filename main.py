@@ -1,8 +1,8 @@
 import numpy as np
-from collections import namedtuple
+from typing import NamedTuple
 
 
-class Material(namedtuple):
+class Material(NamedTuple):
     spin_moment: float
     exchange_between_i_and_j: float
     anisotropy_i: float
