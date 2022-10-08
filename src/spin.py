@@ -18,13 +18,11 @@ class Spin(object):
 
         s_cross_h = np.cross(self.spin_position, total_field)
         s_cross_s_cross_h = np.cross(self.spin_position, s_cross_h)
-        euler_step = s_cross_h + s_cross_s_cross_h
+        euler_step = (s_cross_h + s_cross_s_cross_h) * timestep_size
 
-        spin_positions_after_euler_step=self.spin_position + euler_step*timestep_size
+        pre_normalized_spin_positions = self.spin_position + euler_step
+        self.spin_position = pre_normalized_spin_positions / np.linalg.norm(pre_normalized_spin_positions)
 
-        spin_positions_after_euler_step = spin_positions_after_euler_step/np.linalg.norm(spin_positions_after_euler_step)
-
-        self.spin_position = spin_positions_after_euler_step
 
 
 class SpinBuilder(object):
