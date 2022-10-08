@@ -14,6 +14,18 @@ class Spin(object):
     def anisotropy_field(self):
         return -self.spin_position[self.Z_INDEX]*self.spin_position[self.Z_INDEX]*self.anisotropy
 
+    def make_timestep(self, timestep_size, total_field):
+
+        s_cross_h = np.cross(self.spin_position, total_field)
+        s_cross_s_cross_h = np.cross(self.spin_position, s_cross_h)
+        euler_step = s_cross_h + s_cross_s_cross_h
+
+        spin_positions_after_euler_step=self.spin_position + euler_step*timestep_size
+
+        spin_positions_after_euler_step = spin_positions_after_euler_step/np.linalg.norm(spin_positions_after_euler_step)
+
+        self.spin_position = spin_positions_after_euler_step
+
 
 class SpinBuilder(object):
     position_x = 0
