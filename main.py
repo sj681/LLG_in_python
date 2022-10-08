@@ -28,7 +28,7 @@ if __name__ == '__main__':
     iron = Material(1,1,1)
     cobalt = Material(2,2,2)
 
-    atom_spins[atom_index] = SpinBuilder().with_direction(0.4, 0.8, 0.1).with_type_of_material("iron").with_anisotropy(1).with_spin_moment(1).build()
+    atom_spins[atom_index] = SpinBuilder().with_magnetization_direction(0.4, 0.8, 0.1).with_material_type("iron").with_anisotropy(1).with_spin_moment(1).build()
 
     total_field = 0
 
@@ -38,4 +38,4 @@ if __name__ == '__main__':
 
         atom_spins[atom_index].make_timestep(timestep_size, total_field)
 
-        print(atom_spins[atom_index].spin_position)
+        print(atom_spins[atom_index].magnetization_direction)
