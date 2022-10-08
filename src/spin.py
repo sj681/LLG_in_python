@@ -24,7 +24,6 @@ class Spin(object):
         self.magnetization_direction = pre_normalized_spin_positions / np.linalg.norm(pre_normalized_spin_positions)
 
 
-
 class SpinBuilder(object):
     position = np.array([0, 0, 0])
     magnetization_direction = np.array([0, 0, 0])
