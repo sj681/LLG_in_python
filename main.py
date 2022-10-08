@@ -49,4 +49,4 @@ if __name__ == '__main__':
 
         atom_spins[atom_index].spin_position = spin_positions_after_euler_step
 
-        print(spin_positions_after_euler_step)
+        print(atom_spins[atom_index].spin_position)
