@@ -26,13 +26,13 @@ class SpinBuilder(object):
     def __init__(self) -> None:
         pass
 
-    def with_position(self, x, y, z):
+    def with_position(self, x:float=0, y:float=0, z:float=0):
         self.position_x = x
         self.position_y = y
         self.position_z = z
         return self
     
-    def with_direction(self, x, y, z):
+    def with_direction(self, x:float=0, y:float=0, z:float=0):
         self.spin_position_x = x
         self.spin_position_y = y
         self.spin_position_z = z
