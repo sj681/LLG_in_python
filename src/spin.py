@@ -26,26 +26,18 @@ class Spin(object):
 
 
 class SpinBuilder(object):
-    position_x = 0
-    position_y = 0
-    position_z = 0
-    magnetization_direction_x = 0
-    magnetization_direction_y = 0
-    magnetization_direction_z = 0
+    position = np.array([0, 0, 0])
+    magnetization_direction = np.array([0, 0, 0])
 
     def __init__(self) -> None:
         pass
 
     def with_position(self, x:float=0, y:float=0, z:float=0):
-        self.position_x = x
-        self.position_y = y
-        self.position_z = z
+        self.position = np.array([x, y, z])
         return self
     
     def with_magnetization_direction(self, x:float=0, y:float=0, z:float=0):
-        self.magnetization_direction_x = x
-        self.magnetization_direction_y = y
-        self.magnetization_direction_z = z
+        self.magnetization_direction = np.array([x, y, z])
         return self
 
     def with_material_type(self, material_type):
@@ -62,8 +54,8 @@ class SpinBuilder(object):
 
     def build(self):
         return Spin(
-            position = np.array([self.position_x, self.position_y, self.position_z]),
-            magnetization_direction = np.array([self.magnetization_direction_x, self.magnetization_direction_y, self.magnetization_direction_z]),
+            position = self.position,
+            magnetization_direction = self.magnetization_direction,
             material_type=self.material_type,
             anisotropy=self.anisotropy,
             spin_moment=self.spin_moment
