@@ -33,7 +33,7 @@ if __name__ == '__main__':
 
     total_field = 0
 
-    for i in range(0,number_of_timesteps):
+    for timestep in range(0,number_of_timesteps):
 
         total_field = calculate_fields(total_field, atom_spins[atom_index])
 
