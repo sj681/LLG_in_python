@@ -43,7 +43,6 @@ if __name__ == '__main__':
         s_cross_s_cross_h = np.cross(spin_positions, s_cross_h)
         euler_step = s_cross_h + s_cross_s_cross_h
 
-        spin_positions_after_euler_step = [0,0,0]
         spin_positions_after_euler_step=atom_spins[atom_index].spin_position + euler_step*timestep_size
 
         spin_positions_after_euler_step = spin_positions_after_euler_step/np.linalg.norm(spin_positions_after_euler_step)
