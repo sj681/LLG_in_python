@@ -1,76 +1,41 @@
-import numpy as np
+from typing import NamedTuple
+
+from src.spin import SpinBuilder
+
+class Material(NamedTuple):
+    spin_moment: float
+    exchange_between_i_and_j: float
+    anisotropy_i: float
 
 
-class material_properties(object):
-
-    def __init__(self, spin_moment, exchange_between_i_and_j, anisotropy_i):
-
-        self.spin_moment = spin_moment
-        self.exchange_between_i_and_j = exchange_between_i_and_j
-        self.anisotropy_i = anisotropy_i
-
-
-class create_a_spin(object):
-
-    def __init__(self, position_x,position_y, position_z, spin_position_x, spin_position_y,spin_position_z,type_of_material,anisotropy,spin_moment):
-
-        self.position_x = position_x
-        self.position_y = position_y
-        self.position_z = position_z
-        self.spin_position_x = spin_position_x
-        self.spin_position_y = spin_position_y
-        self.spin_position_z = spin_position_z
-        self.type_of_material = type_of_material
-        self.anisotropy = anisotropy
-        self.spin_moment = spin_moment
-
-def calculate_fields(field):
+def calculate_fields(field, spin):
     field = [0,0,0]
-    field[2] = field[2] + calculate_anisotropy_field()
+    field[2] = field[2] + spin.anisotropy_field()
     #field = field + calculate_thermal_field()
     #field = field + calculate_exchange_field()
     return field
 
-def calculate_anisotropy_field():
 
-    return -spins_array[atom].spin_position_z*spins_array[atom].spin_position_z*spins_array[atom].anisotropy
+if __name__ == '__main__':
 
+    number_of_atoms = 1
+    number_of_timesteps = 30
+    timestep_size = 1
 
+    atom_spins = [0 for i in range(number_of_atoms)]
+    atom_index = 0
 
-number_of_atoms = 1
-number_of_simulation_steps = 30
+    iron = Material(1,1,1)
+    cobalt = Material(2,2,2)
 
-spins_array=[0 for i in range(number_of_atoms)]
-atom = 0
-iron = material_properties(1,1,1)
-co = material_properties(2,2,2)
+    atom_spins[atom_index] = SpinBuilder().with_magnetization_direction(0.4, 0.8, 0.1).with_material_type("iron").with_anisotropy(1).with_spin_moment(1).build()
 
-spins_array[atom] = create_a_spin(0,0,0,0.4,0.8,0.1,"iron",1,1)
+    total_field = 0
 
-total_field = 0
+    for timestep in range(0,number_of_timesteps):
 
-for i in range(0,number_of_simulation_steps):
+        total_field = calculate_fields(total_field, atom_spins[atom_index])
 
-    total_field = calculate_fields(total_field)
+        atom_spins[atom_index].make_timestep(timestep_size, total_field)
 
-    spin_positions = [spins_array[atom].spin_position_x,spins_array[atom].spin_position_y,spins_array[atom].spin_position_z]
-
-    s_cross_h = np.cross(spin_positions, total_field)
-
-    s_cross_s_cross_h = np.cross(spin_positions, s_cross_h)
-
-    euler_step = s_cross_h + s_cross_s_cross_h
-
-    spin_positions_after_euler_step = [0,0,0]
-    dt = 1
-    spin_positions_after_euler_step[0]=spins_array[atom].spin_position_x + euler_step[0]*dt;
-    spin_positions_after_euler_step[1]=spins_array[atom].spin_position_y + euler_step[1]*dt;
-    spin_positions_after_euler_step[2]=spins_array[atom].spin_position_z + euler_step[2]*dt;
-
-    spin_positions_after_euler_step = spin_positions_after_euler_step/np.linalg.norm(spin_positions_after_euler_step)
-
-    spins_array[atom].spin_position_x = spin_positions_after_euler_step[0]
-    spins_array[atom].spin_position_y = spin_positions_after_euler_step[1]
-    spins_array[atom].spin_position_z = spin_positions_after_euler_step[2]
-
-    print(spin_positions_after_euler_step)
+        print(atom_spins[atom_index].magnetization_direction)
